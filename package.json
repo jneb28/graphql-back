@@ -1,0 +1,31 @@
+{
+  "name": "josh-graphql-crud",
+  "version": "1.0.0",
+  "description": "josh-graphql-crud",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "mongoose": "^5.4.19"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jneb28/josh-graphql-crud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jneb28/josh-graphql-crud/issues"
+  },
+  "homepage": "https://github.com/jneb28/josh-graphql-crud#readme"
+}
