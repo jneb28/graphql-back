@@ -11,8 +11,13 @@ module.exports = buildSchema(`
     race: String!
   }
 
+  type Players {
+    players: [Player!]!
+  }
+
   type RootQuery {
     readPlayer(_id: ID!): Player!
+    readAllPlayers: Players!
   }
 
   type RootMutation {

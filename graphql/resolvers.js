@@ -1,7 +1,7 @@
 const Player = require('../models/player.js');
 
 module.exports = {
-  createPlayer: async function({ playerInput }, req) {
+  createPlayer: async function({ playerInput }) {
     const existingPlayer = await Player.findOne({ name: playerInput.name });
     if(existingPlayer) {
       const error = new Error('Player already exists');
@@ -14,10 +14,13 @@ module.exports = {
       race: playerInput.race
     });
     const createdPlayer = await player.save();
-    return { ...createdPlayer._doc, _id: createdPlayer._id.toString() };
+    return { 
+      ...createdPlayer._doc, 
+      _id: createdPlayer._id.toString() 
+    };
   },
 
-  readPlayer: async function({ _id }, req) {
+  readPlayer: async function({ _id }) {
     const player = await Player.findById(_id);
     if(!player) {
       const error = new Error('Player not found.');
@@ -26,10 +29,27 @@ module.exports = {
     return {
       ...player._doc,
       _id: player._id.toString()
-    }
+    };
   },
 
-  deletePlayer: async function({ _id }, req) {
+  readAllPlayers: async function() {
+    const players = await Player.find()
+    .sort({ wins: -1 });
+    if(!players) {
+      const error = new Error('Players not found.');
+      throw error;
+    }
+    return {
+      players: players.map(player => {
+        return {
+          ...player._doc,
+          _id: player._id.toString()
+        };
+      })
+    };
+  },
+
+  deletePlayer: async function({ _id }) {
     const player = await Player.findByIdAndDelete(_id);
     if(!player) {
       const error = new Error('Player deletion failed.');
@@ -38,7 +58,7 @@ module.exports = {
     return true;
   },
   
-  updatePlayer: async function({ _id, playerInput }, req) {
+  updatePlayer: async function({ _id, playerInput }) {
     const player = await Player.findById(_id);
     if(!player) {
       const error = new Error('Player not found.');
