@@ -49,6 +49,24 @@ module.exports = {
     };
   },
 
+  readTop10: async function() {
+    const players = await Player.find()
+    .sort({ wins: -1 })
+    .limit(10);
+    if(!players) {
+      const error = new Error('Players not found.');
+      throw error;
+    }
+    return {
+      players: players.map(player => {
+        return {
+          ...player._doc,
+          _id: player._id.toString()
+        };
+      })
+    };
+  },
+
   deletePlayer: async function({ _id }) {
     const player = await Player.findByIdAndDelete(_id);
     if(!player) {

@@ -18,6 +18,7 @@ module.exports = buildSchema(`
   type RootQuery {
     readPlayer(_id: ID!): Player!
     readAllPlayers: Players!
+    readTop10: Players!
   }
 
   type RootMutation {
